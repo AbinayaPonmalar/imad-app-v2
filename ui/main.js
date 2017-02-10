@@ -23,6 +23,13 @@ var nameInput = document.getElementById('name');
 var name = nameInput.value;
 var submit = document.getElementById('submit_btn');
 submit.onclick = function() {
+    var request = new XMLHttpRequest();
+    //capture the response n store in a value
+    request.onreadystatechange = function() {
+        if(request.readyState == XMLHttpRequest.DONE)
+        {
+            if(request.status == 200) 
+            {
     var names = ['name1', 'name2', 'name3', 'name4'];
     var list = '';
     for (var i=0; i<names.length; i++)
@@ -31,4 +38,9 @@ submit.onclick = function() {
     }
     var ul = document.getElementById('nameList');
     ul.innerHTML = list;
+            }
+        }
+};
+    request.open('GET', 'http://abinayaponmalar.imad.hasura-app.io/submit-name/?name=' +name, true);
+    request.send(null);
 };
